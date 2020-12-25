@@ -1,0 +1,16 @@
+<<
+   /EndPage
+   {
+     2 eq { pop false }
+     {
+         gsave      
+         /Helvetica findfont 48 scalefont setfont
+         newpath
+         .90 setgray 150 350 moveto 10 rotate
+         (Testing stuff) false  charpath
+         1 setlinewidth stroke
+         grestore
+         true
+     } ifelse
+   } bind
+>> setpagedevice

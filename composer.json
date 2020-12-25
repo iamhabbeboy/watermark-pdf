@@ -1,0 +1,17 @@
+{
+    "name": "solomon/watermark-php-app",
+    "authors": [
+        {
+            "name": "iamhabbeboy",
+            "email": "iamhabbeboy@gmail.com"
+        }
+    ],
+    "require": {
+        "ajaxray/php-watermark": "^0.1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Abiodun\\Watermark\\": "src/"
+        }
+    }
+}
