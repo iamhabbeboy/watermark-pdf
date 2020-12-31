@@ -17,6 +17,39 @@
         #file-preview-modal .modal-body {
             overflow:auto;
         }
+
+        .resizer {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: black;
+    z-index: 2;
+}
+
+.resizer.nw {
+    top: -1px;
+    left: -1px;
+    cursor: nw-resize;
+}
+
+.resizer.ne {
+    top: -1px;
+    right: -1px;
+    cursor: ne-resize;
+}
+
+.resizer.sw {
+    bottom: -1px;
+    left: -1px;
+    cursor: sw-resize;
+}
+
+.resizer.se {
+    bottom: -1px;
+    right: -1px;
+    cursor: se-resize;
+}
     </style>
 </head>
 <body>
@@ -27,6 +60,9 @@
             <button class="btn-primary btn btn-lg" id="upload-document">Click to upload + </button>
             <form action="" method="POST" enctype="multipart/form-data">
                 <input type="file" id="document" name="document[]" multiple style="visibility:hidden">
+            </form>
+            <form method="POST" enctype="multipart/form-data">
+            <input type="file" id="stamp" style="visibility:hidden;height:1px"/>
             </form>
             <div id="list-files">
                 <ul class="list-group"></ul>
@@ -39,13 +75,17 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Stamp Config</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid vitae laudantium temporibus reiciendis perspiciatis ullam, repellendus enim minus, accusamus, velit illo? Maxime quos tempora, quas natus porro magni sequi. Dolores.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <button class="btn btn-info" id="upload-stamp">Add Stamp</button>
+        <input type="range" value="1" min="0" max="1" step="0.1" id="get-opacity">
+        <button id="generate-output" class="btn btn-sm btn-success">Download</button>
+        <div id="preview" style="position: relative"></div>
       </div>
     </div>
   </div>
