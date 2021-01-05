@@ -44,6 +44,9 @@ if (isset($_GET['action']) && $_GET['action'] ==='position') {
     echo getFinalResult($filename, $left, $top, $opacity, $stamp) ? 'docs/result.png' : $filename;
 }
 
+if (isset($_GET['action']) && $_GET['action'] ==='test') {
+    var_dump($_REQUEST);
+}
 
 function getFinalResult($filename, $left, $top, $opacity, $stamp) {
     // var_dump(ceil($top));
