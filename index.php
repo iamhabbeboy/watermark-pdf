@@ -50,6 +50,9 @@
     right: -1px;
     cursor: se-resize;
 }
+
+#canvas-wrap { position:relative; width:800px; height:600px }
+#canvas-wrap canvas { position:absolute; top:0; left:0; z-index:1;color: white; }
     </style>
 </head>
 <body>
@@ -80,19 +83,73 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="height:700px">
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
         <button class="btn btn-info" id="upload-stamp">Add Stamp</button>
         <input type="range" value="1" min="0" max="1" step="0.1" id="get-opacity">
         <button id="generate-output" class="btn btn-sm btn-success">Download</button>
         <div id="preview" style="position: relative"></div>
+        <canvas id="the-canvas" style="height:1px;width:1px"></canvas>
       </div>
     </div>
   </div>
+ 
 </div>
   
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.5.207/build/pdf.min.js"></script>
+    <script>
+
+// Loaded via <script> tag, create shortcut to access PDF.js exports.
+// var pdfjsLib = window['pdfjs-dist/build/pdf'];
+
+// The workerSrc property shall be specified.
+// pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+// var loadingTask = pdfjsLib.getDocument('src/docs/1610042204.pdf');
+// loadingTask.promise.then(function(pdf) {
+//   // you can now use *pdf* here
+//     pdf.getPage(1).then(function(page) {
+//     // you can now use *page* here
+//         var scale = 1.5;
+//         var viewport = page.getViewport({ scale: scale, });
+//         var canvas = document.getElementById('the-canvas');
+//         var context = canvas.getContext('2d');
+//         canvas.width = viewport.width;
+//         canvas.height = viewport.height;
+
+//         var renderContext = {
+//             viewport: viewport,
+//             canvasContext: context,
+//         };
+//         page.render(renderContext).promise.then(function() {
+//             console.log("Hello ");
+//         });
+//     });
+// });
+
+// Asynchronous download of PDF
+// var pdf = pdfjsLib.getDocument(url);
+// // loadingTask.promise.then(function(pdf) {});
+// pdf.getPage(1).then(function(page) {
+//   // you can now use *page* here
+//   var scale = 1.5;
+//     var viewport = page.getViewport({ scale: scale, });
+
+//     var canvas = document.getElementById('the-canvas');
+//     var context = canvas.getContext('2d');
+//     canvas.height = viewport.height;
+//     canvas.width = viewport.width;
+
+//     var renderContext = {
+//     canvasContext: context,
+//     viewport: viewport
+//     };
+//     page.render(renderContext);
+// });
+
+
+    </script>
     <!-- <script src="static/js/app.js"></script> -->
     <script src="static/dist/bundle.js"></script>
    

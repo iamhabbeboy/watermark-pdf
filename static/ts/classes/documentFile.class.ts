@@ -1,22 +1,23 @@
 import { FileDom } from '../enum/filedom.enum';
 import { FileInterface } from '../interfaces/file.Interface';
+import { BaseFile } from './baseFile.class';
 import { DocumentDom } from './documentFileDom.class';
 import { Html } from './html.class';
 
-class DocumentFile {
-  file: any;
+class DocumentFile extends BaseFile implements FileInterface {
   button: Element;
+  file: FileInterface;
   fileElement: Element;
   parentListing: Element;
 
-  constructor(fileUpload: FileInterface) {
-    this.file = fileUpload;
+  constructor() {
+    super();
     this.button = document.querySelector(FileDom.DOCUMENT_BUTTON);
     this.fileElement = document.querySelector(FileDom.DOCUMENT_UPLOAD);
     this.parentListing = document.querySelector(FileDom.DOCUMENT_LISTING);
   }
 
-  processAction() {
+  processAction(): void {
     const that = this;
 
     this.button.addEventListener('click', function (e) {
@@ -25,8 +26,10 @@ class DocumentFile {
     });
 
     this.fileElement.addEventListener('change', function (e) {
-      that.file.setProperty(this, FileDom.FORM_NAME);
-      that.file.processElement(new Html(new DocumentDom(), that.parentListing));
+      that.setProperty(this, FileDom.DOCUMENT_FORM_NAME);
+      that.processElement(
+        new Html(new DocumentDom(that.getFormData()), that.parentListing)
+      );
     });
   }
 }
