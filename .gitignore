@@ -3,3 +3,4 @@ vendor/
 src/static/docs/
 .DS_Store
 node_modules
+docs/

@@ -87,6 +87,7 @@
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
         <button class="btn btn-info" id="upload-stamp">Add Stamp</button>
         <input type="range" value="1" min="0" max="1" step="0.1" id="get-opacity">
+        <input type="text" id="document-filename" />
         <button id="generate-output" class="btn btn-sm btn-success">Download</button>
         <div id="preview" style="position: relative"></div>
         <canvas id="the-canvas" style="height:1px;width:1px"></canvas>

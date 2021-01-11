@@ -1,9 +1,10 @@
 import { FileHtmlInterface } from '../interfaces/filehtml.interface';
 import { File } from '../enum/file.enum';
 import { HttpRequest } from '../classes/httpRequest.class';
-import axios from 'axios';
 import { PdfImagePreview } from '../lib/pdfImagePreview.class';
 import { ImageRenderer } from './imageRenderer.class';
+import { Download } from './download.class';
+import { Helper } from '../enum/helper.enum';
 
 class DocumentDom implements FileHtmlInterface {
   fileHandler: any;
@@ -69,7 +70,7 @@ class DocumentDom implements FileHtmlInterface {
    * Using jQuery here is a bad idea
    * in 2021 🙈.
    */
-  showModalDiaglog() {
+  async showModalDiaglog() {
     const elem = $('#file-preview-modal');
     elem.modal();
     const dom = elem.find('#preview');
@@ -78,22 +79,23 @@ class DocumentDom implements FileHtmlInterface {
         let percentCompleted = Math.round(
           (progressEvent.loaded * 100) / progressEvent.total
         );
-        console.log(percentCompleted);
         dom.html(
           `<h3>${percentCompleted}%<br/><i>Please wait...</i></h3><progress id="file" value="${percentCompleted}" max="100">${percentCompleted}</progress>`
         );
       }
     };
     new HttpRequest()
-      .file('src/request.php', this.fileHandler, config)
+      .file(Helper.API_URL, this.fileHandler, config)
       .then((response) => {
         const canvas = document.querySelector('#the-canvas');
         const imagePreview = document.querySelector('#preview');
         const pdfImagePreviewer = new PdfImagePreview(
           canvas,
-          new ImageRenderer()
+          new ImageRenderer(imagePreview)
         );
         pdfImagePreviewer.getImage('src/' + response.data);
+        const downloadButton = new Download(response.data);
+        downloadButton.trigger();
       })
       .catch((error) => alert(error));
   }

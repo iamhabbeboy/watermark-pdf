@@ -13,7 +13,6 @@ class Html {
   setElement(index: number, object: any) {
     const elem = this.fileHtml.getElementLayout(index, object);
     this.parentElement.appendChild(elem);
-    console.log(this.parentElement);
   }
 
   save(files: Element) {

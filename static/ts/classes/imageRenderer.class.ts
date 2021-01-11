@@ -1,9 +1,11 @@
 class ImageRenderer {
-  constructor() {}
+  element: Element;
+  constructor(element: Element) {
+    this.element = element;
+  }
 
   get(canvas: Element) {
-    return (document.querySelector('#preview').innerHTML =
-      '<img src="' + canvas.toDataURL() + '"/>');
+    return (this.element.innerHTML = '<img src="' + canvas.toDataURL() + '"/>');
   }
 }
 

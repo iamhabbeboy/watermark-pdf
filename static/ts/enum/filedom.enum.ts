@@ -13,5 +13,5 @@ export enum FileDom {
   STAMP_FILE = '#stamp',
   STAMP_UPLOADER = '#upload-stamp',
   STAMP_FORM_NAME = 'stamp',
-  STAMP_PLACEHOLDER = '#the-canvas'
+  STAMP_PLACEHOLDER = '#preview'
 }

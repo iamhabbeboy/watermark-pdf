@@ -35,14 +35,13 @@ if (isset($_FILES['stamp'])) {
     }
 }
 
-
 if (isset($_GET['action']) && $_GET['action'] ==='position') {
     $top = (int) $_REQUEST['top'];
     $left = (int) $_REQUEST['left'];
     $filename = $_REQUEST['filename'];
     $stamp = $_REQUEST['stamp'];
     $opacity = $_REQUEST['opacity'];
-    echo getFinalResult($filename, $left, $top, $opacity, $stamp) ? 'docs/result.png' : $filename;
+    echo getFinalResult($filename, $left, $top, $opacity, $stamp) ? 'docs/result.pdf' : $filename;
 }
 
 if (isset($_GET['action']) && $_GET['action'] ==='test') {

@@ -3,12 +3,12 @@ import axios, { AxiosAdapter } from 'axios';
 class HttpRequest {
   constructor() {}
 
-  get() {
-    // return axios.get();
+  get(url: string, data: object) {
+    return axios.get(url, { params: data });
   }
 
-  post() {
-    // return axios.post();
+  post(url: string, data: object) {
+    return axios.post(url, data);
   }
 
   file(url: string, formData: Element, config: any) {

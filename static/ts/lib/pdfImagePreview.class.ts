@@ -16,6 +16,7 @@ class PdfImagePreview {
     this.loader = window['pdfjs-dist/build/pdf'];
     this.pageRender = element;
     this.renderImage = imageRender;
+    this.loader.GlobalWorkerOptions.workerSrc = false;
   }
 
   getImage(filePath: string) {
