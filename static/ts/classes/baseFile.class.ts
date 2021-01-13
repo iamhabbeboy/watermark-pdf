@@ -29,7 +29,6 @@ abstract class BaseFile {
    */
   processElement(html: Html) {
     const files = this.fileObject.files;
-    console.log(files);
     if (files.length > 0) {
       for (let [index, file] of Array.from(files).entries()) {
         //validation
