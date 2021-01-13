@@ -15,8 +15,8 @@ class Html {
     this.parentElement.appendChild(elem);
   }
 
-  save(files: Element) {
-    this.fileHtml.save(files);
-  }
+  // save(files: Element) {
+  //   this.fileHtml.save(files);
+  // }
 }
 export { Html };

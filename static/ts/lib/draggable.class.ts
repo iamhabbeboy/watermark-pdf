@@ -1,73 +1,45 @@
-// const element = document.querySelector('.item');
-// const elem = 'hello';
+import { Helper } from '../enum/helper.enum';
 
-export function Draggable(element) {
-  element.addEventListener('mousedown', mousedown);
-  let currentResizer, isResizing;
+export function Draggable(e: any, element: any) {
+  // let currentResizer, isResizing;
+  document.addEventListener('mousemove', mousemove);
+  document.addEventListener('mouseup', mouseup);
+  let prevX = e.clientX;
+  let prevY = e.clientY;
 
-  function mousedown(e) {
-    window.addEventListener('mousemove', mousemove);
-    window.addEventListener('mouseup', mouseup);
-    let prevX = e.clientX;
-    let prevY = e.clientY;
-
-    function mousemove(e) {
-      if (!isResizing) {
-        let newX = prevX - e.clientX;
-        let newY = prevY - e.clientY;
-        const rect = element.getBoundingClientRect();
-        element.style.left = rect.left - newX + 'px';
-        element.style.top = rect.top - newY + 'px';
-        prevX = e.clientX;
-        prevY = e.clientY;
-      }
+  function mousemove(e: any) {
+    // if (!isResizing) {
+    let newX = prevX - e.clientX;
+    let newY = prevY - e.clientY;
+    const { offsetLeft, offsetTop } = element;
+    element.style.left = offsetLeft - newX + 'px';
+    element.style.top = offsetTop - newY + 'px';
+    const parentWidth = element.parentElement.offsetWidth,
+      parentHeight = element.parentElement.offsetHeight;
+    if (parseInt(element.style.left) < 0) {
+      element.style.left = 0 + 'px';
+    }
+    if (parseInt(element.style.top) < 0) {
+      element.style.top = 0 + 'px';
+    }
+    if (parseInt(element.style.left) > parentWidth) {
+      element.style.left = parentWidth + 'px';
     }
 
-    function mouseup() {
-      window.removeEventListener('mousemove', mousemove);
-      window.removeEventListener('mouseup', mouseup);
+    if (parseInt(element.style.top) > parentHeight) {
+      element.style.top = parentHeight + 'px';
     }
 
-    const resizers = document.querySelectorAll('.resizer');
-    for (let resizer of resizers) {
-      resizer.addEventListener('mousedown', mousedown);
-      function mousedown(e) {
-        currentResizer = e.target;
-        isResizing = true;
-
-        let prevX = e.clientX;
-        let prevY = e.clientY;
-        window.addEventListener('mousemove', mousemove);
-        window.addEventListener('mouseup', mouseup);
-        function mousemove(e) {
-          const rect = element.getBoundingClientRect();
-          if (currentResizer.classList.contains('se')) {
-            element.style.width = rect.width - (prevX - e.clientX) + 'px';
-            element.style.height = rect.height - (prevY - e.clientY) + 'px';
-          } else if (currentResizer.classList.contains('sw')) {
-            element.style.width = rect.width + (prevX - e.clientX) + 'px';
-            element.style.height = rect.height - (prevY - e.clientY) + 'px';
-            element.style.left = rect.left - (prevX - e.clientX) + 'px';
-          } else if (currentResizer.classList.contains('ne')) {
-            element.style.width = rect.width - (prevX - e.clientX) + 'px';
-            element.style.height = rect.height + (prevY - e.clientY) + 'px';
-            element.style.top = rect.top - (prevY - e.clientY) + 'px';
-          } else {
-            element.style.width = rect.width + (prevX - e.clientX) + 'px';
-            element.style.height = rect.height + (prevY - e.clientY) + 'px';
-            element.style.top = rect.top - (prevY - e.clientY) + 'px';
-            element.style.left = rect.left - (prevX - e.clientX) + 'px';
-          }
-          prevX = e.clientX;
-          prevY = e.clientY;
-        }
-
-        function mouseup() {
-          window.removeEventListener('mousemove', mousemove);
-          window.removeEventListener('mouseup', mouseup);
-          isResizing = false;
-        }
-      }
-    }
+    prevX = e.clientX;
+    prevY = e.clientY;
   }
+
+  function mouseup() {
+    document.removeEventListener('mousemove', mousemove);
+    document.removeEventListener('mouseup', mouseup);
+  }
+
+  element.ondragstart = function () {
+    return false;
+  };
 }

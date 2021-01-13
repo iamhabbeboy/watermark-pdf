@@ -62,10 +62,10 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam iure voluptatem quisquam dolorum et facere nam autem? Ad, optio veniam. Temporibus animi odit, voluptas atque earum ipsam enim eius hic.</p>
             <button class="btn-primary btn btn-lg" id="upload-document">Click to upload + </button>
             <form action="" method="POST" enctype="multipart/form-data">
-                <input type="file" id="document" name="document[]" multiple style="visibility:hidden">
+                <input type="file" id="document" name="document[]" multiple style="visibility:hidden" accept="application/pdf">
             </form>
             <form method="POST" enctype="multipart/form-data">
-            <input type="file" id="stamp" style="visibility:hidden;height:1px"/>
+            <input type="file" id="stamp" style="visibility:hidden;height:1px" accept="image/*"/>
             </form>
             <div id="list-files">
                 <ul class="list-group"></ul>
@@ -78,19 +78,22 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Stamp Config</h5>
+        <div class="modal-title" id="exampleModalLabel">
+        <b>Stamp Config</b>
+        <button class="btn btn-info" id="upload-stamp">Add Stamp</button>
+        <input type="range" value="1" min="0" max="1" step="0.1" id="get-opacity">
+        <input type="hidden" id="document-filename" />
+        <button id="generate-output" class="btn btn-sm btn-success">Download</button>
+        </div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body" style="height:700px">
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <button class="btn btn-info" id="upload-stamp">Add Stamp</button>
-        <input type="range" value="1" min="0" max="1" step="0.1" id="get-opacity">
-        <input type="text" id="document-filename" />
-        <button id="generate-output" class="btn btn-sm btn-success">Download</button>
+      
         <div id="preview" style="position: relative"></div>
-        <canvas id="the-canvas" style="height:1px;width:1px"></canvas>
+        <canvas id="canvas-render" style="height:1px;width:1px"></canvas>
       </div>
     </div>
   </div>

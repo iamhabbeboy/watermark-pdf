@@ -15,14 +15,14 @@ class StampDom implements FileHtmlInterface {
       image = document.createElement('img');
     elem.setAttribute(
       'style',
-      'z-index:10000;position:absolute;top:10px;left: 0px'
+      'z-index:10000;position:absolute;top:10px;left: 0px;'
     );
     elem.setAttribute('id', 'draggable');
     image.src = URL.createObjectURL(file);
     elem.appendChild(image);
-
     this.setOpacity(elem);
     this.processLogo();
+    elem.addEventListener('mousedown', (e) => Draggable(e, elem));
 
     return elem;
   }

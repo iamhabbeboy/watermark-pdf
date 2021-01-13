@@ -13,6 +13,7 @@ class DocumentDom implements FileHtmlInterface {
     this.fileHandler = formData;
   }
   getElementLayout(index: number, file: any) {
+    // console.log(file);
     const row = document.createElement('div'),
       list = document.createElement('li'),
       fileTitleColumn = document.createElement('div'),
@@ -47,7 +48,7 @@ class DocumentDom implements FileHtmlInterface {
     return list;
   }
 
-  setAttribute(el: Element, className: string) {
+  setAttribute(el: Element, className: string): Element {
     el.className = className;
     return el;
   }
@@ -64,7 +65,10 @@ class DocumentDom implements FileHtmlInterface {
 
   deleteButtonAction(e) {
     e.preventDefault();
-    alert('hello world');
+    if (window.confirm('Are you sure ?')) {
+      e.srcElement.parentElement.parentElement.parentElement.style.display =
+        'none';
+    }
   }
   /**
    * Using jQuery here is a bad idea
@@ -73,7 +77,7 @@ class DocumentDom implements FileHtmlInterface {
   async showModalDiaglog() {
     const elem = $('#file-preview-modal');
     elem.modal();
-    const dom = elem.find('#preview');
+    const dom = elem.find(File.IMAGE_PREVIEW);
     const config = {
       onUploadProgress: (progressEvent) => {
         let percentCompleted = Math.round(
@@ -84,11 +88,12 @@ class DocumentDom implements FileHtmlInterface {
         );
       }
     };
+
     new HttpRequest()
       .file(Helper.API_URL, this.fileHandler, config)
       .then((response) => {
-        const canvas = document.querySelector('#the-canvas');
-        const imagePreview = document.querySelector('#preview');
+        const canvas = document.querySelector(File.PDF_TO_IMAGE_CANVAS_RENDER);
+        const imagePreview = document.querySelector(File.IMAGE_PREVIEW);
         const pdfImagePreviewer = new PdfImagePreview(
           canvas,
           new ImageRenderer(imagePreview)

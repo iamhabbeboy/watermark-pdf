@@ -1,10 +1,12 @@
 import { Html } from './html.class';
+import { File } from '../enum/file.enum';
 /**
  *  Handles the file upload logic
  */
 abstract class BaseFile {
   formName: string;
   fileObject: any;
+  fileList: any;
 
   /**
    * Set file properties
@@ -18,6 +20,7 @@ abstract class BaseFile {
   getFormData() {
     let formData = new FormData();
     formData.append(this.formName, this.fileObject.files[0]);
+
     return formData;
   }
   /**
@@ -30,7 +33,13 @@ abstract class BaseFile {
       for (let [index, file] of Array.from(files).entries()) {
         //validation
         //embed on element
-        html.setElement(index, file);
+        let filesize = Math.ceil(file.size / File.FILE_SIZE_TO_KILOBYTE);
+        if (filesize > File.MAX_FILE_SIZE) {
+          alert('Max file size is 1MB');
+        } else {
+          html.setElement(index, file);
+          this.fileList.push(file);
+        }
       }
     }
   }

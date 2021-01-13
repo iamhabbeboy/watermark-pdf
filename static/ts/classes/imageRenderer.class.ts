@@ -5,7 +5,8 @@ class ImageRenderer {
   }
 
   get(canvas: Element) {
-    return (this.element.innerHTML = '<img src="' + canvas.toDataURL() + '"/>');
+    return (this.element.innerHTML =
+      '<img src="' + canvas.toDataURL() + '" width="100%"/>');
   }
 }
 

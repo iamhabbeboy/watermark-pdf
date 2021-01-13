@@ -1,22 +1,16 @@
 <?php
 namespace Abiodun\Watermark\Repository;
 
-use Ajaxray\PHPWatermark\Watermark;
+use Abiodun\Watermark\Abstract\FileAbstract;
 
-class Document
+class Document extends FileAbstract
 {
     const FILE_DIRECTORY = 'docs/';
-    const FILE_OUTPUT = 'output-';
-    const FILE_STAMP = 'stamp-';
-    const FILE_IMAGE_OUTPUT = 'document-image-output.png';
+    const FILE_OUTPUT = '';
 
     public function get(string $fileName)
     {
-        // $watermark = new Watermark(self::FILE_DIRECTORY . $fileName);
-        // $path = self::FILE_DIRECTORY . self::FILE_IMAGE_OUTPUT;
-        // $this->removeDocumentImage();
         return self::FILE_DIRECTORY . $fileName;
-        // return $watermark->withText('', $path);
     }
 
     public function removeDocumentImage()
@@ -27,7 +21,6 @@ class Document
         foreach($files as $file) { // iterate files
             if(is_file($file)) {
                 unlink($file); // delete file
-                var_dump($file . "is deleted");
             }
         }
     }
