@@ -6,11 +6,9 @@ import { HttpRequest } from './httpRequest.class';
 
 class StampDom implements FileHtmlInterface {
   fileHandler: any;
-  constructor(formData: any) {
-    this.fileHandler = formData;
-  }
 
-  getElementLayout(index: number, file: any) {
+  getElementLayout(index: number, file: any, formData: any) {
+    this.fileHandler = formData;
     const elem = document.createElement('div'),
       image = document.createElement('img');
     elem.setAttribute(
@@ -33,7 +31,6 @@ class StampDom implements FileHtmlInterface {
         let percentCompleted = Math.round(
           (progressEvent.loaded * 100) / progressEvent.total
         );
-        console.log(percentCompleted);
       }
     };
     return new HttpRequest()

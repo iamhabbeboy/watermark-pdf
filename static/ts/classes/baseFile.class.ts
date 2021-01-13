@@ -17,9 +17,9 @@ abstract class BaseFile {
     this.formName = formName;
   }
 
-  getFormData() {
+  private getFormData(file: any) {
     let formData = new FormData();
-    formData.append(this.formName, this.fileObject.files[0]);
+    formData.append(this.formName, file);
 
     return formData;
   }
@@ -29,6 +29,7 @@ abstract class BaseFile {
    */
   processElement(html: Html) {
     const files = this.fileObject.files;
+    console.log(files);
     if (files.length > 0) {
       for (let [index, file] of Array.from(files).entries()) {
         //validation
@@ -37,8 +38,8 @@ abstract class BaseFile {
         if (filesize > File.MAX_FILE_SIZE) {
           alert('Max file size is 1MB');
         } else {
-          html.setElement(index, file);
-          this.fileList.push(file);
+          let formData = this.getFormData(file);
+          html.setElement(index, file, formData);
         }
       }
     }

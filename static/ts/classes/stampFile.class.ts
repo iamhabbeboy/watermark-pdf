@@ -25,9 +25,7 @@ class StampFile extends BaseFile implements FileInterface {
 
     this.fileElement.addEventListener('change', function (e) {
       that.setProperty(this, FileDom.STAMP_FORM_NAME);
-      that.processElement(
-        new Html(new StampDom(that.getFormData()), that.elementPlaceholder)
-      );
+      that.processElement(new Html(new StampDom(), that.elementPlaceholder));
     });
   }
 }

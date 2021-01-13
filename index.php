@@ -90,8 +90,7 @@
         </button>
       </div>
       <div class="modal-body" style="height:700px">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-      
+        <!-- <p>Upload your stamp </p> -->
         <div id="preview" style="position: relative"></div>
         <canvas id="canvas-render" style="height:1px;width:1px"></canvas>
       </div>

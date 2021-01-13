@@ -5,15 +5,15 @@ import { PdfImagePreview } from '../lib/pdfImagePreview.class';
 import { ImageRenderer } from './imageRenderer.class';
 import { Download } from './download.class';
 import { Helper } from '../enum/helper.enum';
+import { FileDom } from '../enum/filedom.enum';
 
 class DocumentDom implements FileHtmlInterface {
   fileHandler: any;
+  uploadBtn: any;
+  downloadButton: any;
 
-  constructor(formData: any) {
+  getElementLayout(index: number, file: any, formData: any) {
     this.fileHandler = formData;
-  }
-  getElementLayout(index: number, file: any) {
-    // console.log(file);
     const row = document.createElement('div'),
       list = document.createElement('li'),
       fileTitleColumn = document.createElement('div'),
@@ -34,6 +34,10 @@ class DocumentDom implements FileHtmlInterface {
       file.size / File.FILE_SIZE_TO_KILOBYTE
     )}KB`;
 
+    this.uploadBtn = document.querySelector(FileDom.STAMP_UPLOADER);
+    this.uploadBtn.setAttribute('disabled', 'disabled');
+    this.downloadButton = document.querySelector(Helper.DOWNLOAD_BUTTON);
+    this.downloadButton.setAttribute('disabled', 'disabled');
     this.setText(deleteButton, 'Delete x');
     deleteButton.addEventListener('click', this.deleteButtonAction);
     fileTitleColumn.addEventListener('click', (e) => this.showModalDiaglog());
@@ -88,7 +92,7 @@ class DocumentDom implements FileHtmlInterface {
         );
       }
     };
-
+    const that = this;
     new HttpRequest()
       .file(Helper.API_URL, this.fileHandler, config)
       .then((response) => {
@@ -99,8 +103,13 @@ class DocumentDom implements FileHtmlInterface {
           new ImageRenderer(imagePreview)
         );
         pdfImagePreviewer.getImage('src/' + response.data);
-        const downloadButton = new Download(response.data);
-        downloadButton.trigger();
+        that.uploadBtn.removeAttribute('disabled');
+        that.downloadButton.removeAttribute('disabled');
+        const downloadButtonAction = new Download(
+          response.data,
+          that.downloadButton
+        );
+        downloadButtonAction.trigger();
       })
       .catch((error) => alert(error));
   }

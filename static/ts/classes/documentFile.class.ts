@@ -20,16 +20,14 @@ class DocumentFile extends BaseFile implements FileInterface {
   processAction(): void {
     const that = this;
 
-    this.button.addEventListener('click', function (e) {
+    this.button.addEventListener('click', (e) => {
       e.preventDefault();
       that.fileElement.click();
     });
 
-    this.fileElement.addEventListener('change', function (e) {
-      that.setProperty(this, FileDom.DOCUMENT_FORM_NAME);
-      that.processElement(
-        new Html(new DocumentDom(that.getFormData()), that.parentListing)
-      );
+    this.fileElement.addEventListener('change', (e) => {
+      that.setProperty(e.target, FileDom.DOCUMENT_FORM_NAME);
+      that.processElement(new Html(new DocumentDom(), that.parentListing));
     });
   }
 }

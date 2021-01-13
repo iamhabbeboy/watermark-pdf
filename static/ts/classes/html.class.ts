@@ -10,8 +10,8 @@ class Html {
     this.fileHtml = fileHtml;
   }
 
-  setElement(index: number, object: any) {
-    const elem = this.fileHtml.getElementLayout(index, object);
+  setElement(index: number, object: any, formData: any) {
+    const elem = this.fileHtml.getElementLayout(index, object, formData);
     this.parentElement.appendChild(elem);
   }
 

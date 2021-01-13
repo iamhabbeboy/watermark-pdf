@@ -1,3 +1,4 @@
+import { FileDom } from '../enum/filedom.enum';
 import { Helper } from '../enum/helper.enum';
 import { HttpRequest } from './httpRequest.class';
 
@@ -6,33 +7,39 @@ class Download {
   opacity: any;
   draggableOffset: any;
   documentImagePath: string;
-  constructor(documentImagePath: string) {
+  stampFilePath: any;
+  constructor(documentImagePath: string, downloadButtonElement: Element) {
     this.documentImagePath = documentImagePath;
-    this.element = document.querySelector(Helper.DOWNLOAD_BUTTON);
+    this.element = downloadButtonElement;
+    this.stampFilePath = document.querySelector(Helper.STAMP_LOGO_PATH);
   }
   trigger() {
     const that = this;
     this.element.addEventListener('click', (e) => {
+      if (this.stampFilePath.value === '') {
+        return alert('Please upload stamp image!');
+      }
+
       e.srcElement.innerText = 'please wait..';
       e.srcElement.setAttribute('disabled', 'disabled');
-      that.getAction(that.documentImagePath);
+
+      that.getAction();
     });
   }
-  getAction(documentImagePath: string) {
+  private getAction() {
     const opacity = document.querySelector(Helper.OPACITY);
     const draggableOffset = document.querySelector(Helper.STAMP_LOGO);
-    const stampFilePath = document.querySelector(Helper.STAMP_LOGO_PATH);
     const { offsetTop, offsetLeft } = draggableOffset;
     return this.getRequest({
       top: offsetTop,
       left: offsetLeft,
       opacity: opacity.value,
-      stamp: stampFilePath.value,
-      filename: documentImagePath
+      stamp: this.stampFilePath.value,
+      filename: this.documentImagePath
     });
   }
 
-  async getRequest(payload: object) {
+  private async getRequest(payload: object) {
     const that = this;
     return new HttpRequest()
       .get(Helper.API_URL + '?action=position', payload)
@@ -41,8 +48,9 @@ class Download {
           const fullpath = `src/${res.data}`;
           that.element.innerText = 'Download';
           that.element.removeAttribute('disabled');
-          window.open(fullpath);
+          return window.open(fullpath);
         }
+        return alert('Error Occured while processing data');
       });
   }
 }
